@@ -97,3 +97,36 @@ def process_csv_file(input_file: str, output_file: str, processing_func):
         print(f"Đã xử lý và lưu file CSV vào {output_file}")
     except Exception as e:
         print(f"Lỗi khi xử lý file CSV: {e}")
+
+import csv
+
+def txt_to_csv(input_txt_file, output_csv_file, delimiter=','):
+    """
+    Chuyển đổi file txt thành file csv.
+
+    :param input_txt_file: Đường dẫn đến file txt đầu vào.
+    :param output_csv_file: Đường dẫn đến file csv đầu ra.
+    :param delimiter: Ký tự phân cách trong file txt. Mặc định là dấu phẩy ','.
+    """
+    try:
+        # Mở file txt để đọc
+        with open(input_txt_file, 'r', encoding='utf-8') as txt_file:
+            # Đọc tất cả các dòng trong file txt
+            lines = txt_file.readlines()
+
+        # Mở file csv để ghi
+        with open(output_csv_file, 'w', newline='', encoding='utf-8') as csv_file:
+            # Tạo đối tượng writer để ghi dữ liệu vào file csv
+            csv_writer = csv.writer(csv_file)
+
+            # Xử lý từng dòng trong file txt
+            for line in lines:
+                # Loại bỏ ký tự xuống dòng và tách các cột bằng delimiter
+                row = line.strip().split(delimiter)
+                # Ghi dòng vào file csv
+                csv_writer.writerow(row)
+
+        print(f"File '{input_txt_file}' đã được chuyển đổi thành '{output_csv_file}'.")
+
+    except Exception as e:
+        print(f"Có lỗi xảy ra: {e}")

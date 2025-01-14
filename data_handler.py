@@ -130,3 +130,30 @@ def txt_to_csv(input_txt_file, output_csv_file, delimiter=','):
 
     except Exception as e:
         print(f"Có lỗi xảy ra: {e}")
+# Chuyển từ txt -> sql
+
+import csv
+
+def txt_to_csv(txt_file, csv_file, delimiter=','):
+    try:
+        # Đọc nội dung từ file txt
+        with open(txt_file, 'r', encoding='utf-8') as txt:
+            lines = txt.readlines()
+        
+        # Ghi nội dung vào file csv
+        with open(csv_file, 'w', newline='', encoding='utf-8') as csvf:
+            writer = csv.writer(csvf, delimiter=',')
+            
+            for line in lines:
+                # Loại bỏ các khoảng trắng thừa và tách thành danh sách
+                row = line.strip().split(delimiter)
+                writer.writerow(row)
+                
+        print(f"Đã chuyển đổi {txt_file} thành {csv_file} thành công.")
+    except Exception as e:
+        print(f"Đã xảy ra lỗi: {e}")
+
+# Sử dụng hàm
+txt_file_path = 'example.txt'  # Đường dẫn file txt
+csv_file_path = 'output.csv'   # Đường dẫn file csv
+txt_to_csv(txt_file_path, csv_file_path, delimiter=',')
